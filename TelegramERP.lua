@@ -3,7 +3,7 @@ local chatid = ('612687438')
 local link = ('https://api.telegram.org/bot' .. token .. '/sendMessage?chat_id=' .. chatid .. '&text=' )
 --local KDtext = 45000
 
-local ansi_decode={ -- íèæå ñìîòðèòå
+local ansi_decode={ -- ниже смотрите
 	 [128]='\208\130',[129]='\208\131',[130]='\226\128\154',[131]='\209\147',[132]='\226\128\158',[133]='\226\128\166',
 	 [134]='\226\128\160',[135]='\226\128\161',[136]='\226\130\172',[137]='\226\128\176',[138]='\208\137',[139]='\226\128\185',
 	 [140]='\208\138',[141]='\208\140',[142]='\208\139',[143]='\208\143',[144]='\209\146',[145]='\226\128\152',
@@ -38,53 +38,10 @@ function AnsiToUtf8(s)
   return r
 end
 
-function getIp() -- ïîëó÷èòü ñâîé àéïè
+function getIp() -- получить свой айпи
 	ip = openUrl('https://api.ipify.org/?format=json')
 
 	return ip:match('{\"ip\":\"(.*)\"}')
-end
-
-function updateThread(token)
-    local bot, ext = require("lua-bot-api").configure(token)
-
-    ext.onTextReceive = function(msg)
-        linda:send("tg_message_recv", { from = msg.from.id, text = msg.text })
-    end
-
-    ext.run()
-end
-
-function onScriptUpdate()
-    local eventName, eventData = linda:receive(0, "tg_message_recv")
-    if eventName == "tg_message_recv" then
-        onTelegramMessage(eventData.from, eventData.text)
-    end
-end
-
-function onScriptStart()
-	math.randomseed(os.time())
-  lanes.gen("*", updateThread)(token)
-	printLog('[by _delete_]: Ñêðèïò óñïåøíî çàãðóæåí!')
-	openUrl(AnsiToUtf8(link..'[by _delete_] Ñêðèïò óñïåøíî çàãðóæåí'))
-end
-
-function isCoordsInArea2d(x, y, ax, ay, bx, by)
-	if x > ax and x < bx and y < ay and y > by then
-		return true
-	end
-	return false
-end
-
-function onSetHealth(health)
-	nickname = getNickName()
-	sn = getServerName()
-	openUrl(AnsiToUtf8(link..'[by _delete_] Èçìåíåíèå çäîðîâüÿ:%0A%0AÍèê: '..nickname..'%0AÇäîðîâüå: '..health..'%0AÑåðâåð: '..sn))
-end
-
-function onConnect()
-	nickname = getNickName()
-	sn = getServerName()
-	openUrl(AnsiToUtf8(link..'[by _delete_] Áîò '..nickname..' óñïåøíî ïîäêëþ÷åí ê ñåðâåðó: '..sn))
 end
 
 function isPlayerInStream(playerName)
@@ -100,12 +57,12 @@ function isPlayerInStream(playerName)
 end
 
 function onServerMessage(msg)
-    local adminName, playerName = msg:match('Àäìèíèñòðàòîð: (%S+) çàáàíèë (%S+)')
+    local adminName, playerName = msg:match('Администратор: (%S+) забанил (%S+)')
     if adminName and playerName then
         local botName = getNickName()
         if playerName ~= botName then
             if isPlayerInStream(playerName) then
-				openUrl(AnsiToUtf8(link..'Áîò '..nick..'['..id..'] óø¸ë â ðåêîííåêò.%0AÏðè÷èíà: Àäìèí çàáàíèë â çîíå ïðîðèñîâêè.')) -- %0A ïåðåíîñ íà íîâóþ ñòðîêó
+				openUrl(AnsiToUtf8(link..'Бот '..nick..'['..id..'] ушёл в реконнект.%0AПричина: Админ забанил в зоне прорисовки.')) -- %0A перенос на новую строку
                 reconnect(10000)
             end
         end
@@ -119,9 +76,9 @@ function onSpawned(x)
 	id = getBotId()
 	money = getMoney()
 	if (x > 1 and x < 3000) then
-		printLog('[Evolve Evolution]: Áîò çàñïàâíåí!')
+		printLog('[Evolve Evolution]: Бот заспавнен!')
 		defCallAdd(2000, false, function()
-			openUrl(AnsiToUtf8(link..'Áîò '..nick..'['..id..'] çàñïàâíèëñÿ íà ñåðâåðå.%0AÏàðîëü: '..pass..'%0AÄåíåã íà ðóêàõ: '..money..'$%0AÑåðâåð: '..erp..'%0AIP áîòà: '..getIp())) -- %0A ïåðåíîñ íà íîâóþ ñòðîêó
+			openUrl(AnsiToUtf8(link..'[Evolve Evolution]: Бот '..nick..'['..id..'] заспавнился на сервере.%0AПароль: '..pass..'%0AДенег на руках: '..money..'$%0AСервер: '..erp..'%0AIP бота: '..getIp())) -- %0A перенос на новую строку
 		end)
 	end
 end
@@ -133,54 +90,55 @@ function onPrintLog(str)
 	pass = getPassword()
 	money = getMoney()
 	id = getBotId()
-	if str:find('Ñîåäèíåíèå ñ ñåðâåðîì ðàçîðâàíî') then
-		openUrl(AnsiToUtf8(link..'- Ñîåäèíåíèå ñ ñåðâåðîì ðàçîðâàíî!%0A%0AÍèê: ' ..nick.. '['..id..']%0AÑåðâåð: '..erp)) -- Êèê / Ðåêîííåêò
+	if str:find('Соединение с сервером разорвано') then
+		openUrl(AnsiToUtf8(link..'- Соединение с сервером разорвано!%0A%0AНик: ' ..nick.. '['..id..']%0AСервер: '..erp)) -- Кик / Реконнект
 	end
-	if str:find('âûäàë warn '..nick) then
-		openUrl(AnsiToUtf8(link..'- Áîò áûë çàáëîêèðîâàí.%0A%0AÍèê: '..nick..'%0AÑåðâåð:'..erp)) -- Âàðí
+	if str:find('выдал warn '..nick) then
+		openUrl(AnsiToUtf8(link..'- Бот был заблокирован.%0A%0AНик: '..nick..'%0AСервер:'..erp)) -- Варн
 	end
-	if str:find('çàáàíèë '..nick) then
-		openUrl(AnsiToUtf8(link..'- Áîò áûë çàáëîêèðîâàí.%0A%0AÍèê: '..nick..'%0AÑåðâåð:'..erp)) -- Áàí
+	if str:find('забанил '..nick) then
+		openUrl(AnsiToUtf8(link..'- Бот был заблокирован.%0A%0AНик: '..nick..'%0AСервер:'..erp)) -- Бан
 	end
-	if str:find('Âàñ òåëåïîðòèðîâàë ê ñåáå àäìèíèñòðàòîð') then
-		openUrl(AnsiToUtf8(link .. '- Àäìèíèñòðàòîð òåëåïîðòèðîâàë âàñ!%0A%0AÍèê: ' ..nick..'['.. id ..']%0AÑåðâåð: '..erp)) -- Òåëåïîðòèðîâàë àäìèí ê ñåáå
+	if str:find('Вас телепортировал к себе администратор') then
+		openUrl(AnsiToUtf8(link .. '- Администратор телепортировал вас!%0A%0AНик: ' ..nick..'['.. id ..']%0AСервер: '..erp)) -- Телепортировал админ к себе
 	end
-	if str:find(' äàë ïîäæîïíèê') then
-		openUrl(AnsiToUtf8(link .. '- Àäìèíèñòðàòîð äàë âàì ïîäæîïíèê!%0A%0AÍèê: ' ..nick.. '['..id..']%0AÑåðâåð: '..erp)) -- Äàë ïîäæîïíèê àäìèí
+	if str:find(' дал поджопник') then
+		openUrl(AnsiToUtf8(link .. '- Администратор дал вам поджопник!%0A%0AНик: ' ..nick.. '['..id..']%0AСервер: '..erp)) -- Дал поджопник админ
 	end
-	if str:find('Áîíóñíàÿ ïðîêðóòêà') then
-		openUrl(AnsiToUtf8(link .. '- Ïîçäðàâëÿåì! Âû ïîëó÷èëè Áîíóñíóþ ïðîêðóòêó! Ñåé÷àñ ïðîèçîéä¸ò ðåñòàðò áîòà!%0A%0AÍèê: ' ..nick.. '['..id..']%0AÑåðâåð: '..erp)) -- Âûïàëà ðóëåòêà
+	if str:find('Бонусная прокрутка') then
+		openUrl(AnsiToUtf8(link .. '- Поздравляем! Вы получили Бонусную прокрутку! Сейчас произойдёт рестарт бота!%0A%0AНик: ' ..nick.. '['..id..']%0AСервер: '..erp)) -- Выпала рулетка
 		reconnect(10000)
 	end
-	if str:find('òóò') then
+	if str:find('тут') then
 	--	defCallAdd(KDtext, true, function()
-	--		sendInput('Äà ÿ íå îòîø¸ë ïðîñòî ÷àé ïüþ ñèæó') --
+	--		sendInput('Да я не отошёл просто чай пью сижу') --
 	--	end)
-		openUrl(AnsiToUtf8(link .. '- Àäìèíèñòðàòîð Âàñ ñïðîñèë Âû òóò?%0A%0AÍèê: ' ..nick.. '['..id..']%0AÑåðâåð: '..erp)) -- Ïðîâåðêà àäìèíà íà "Âû òóò?"
+		openUrl(AnsiToUtf8(link .. '- Администратор Вас спросил Вы тут?%0A%0AНик: ' ..nick.. '['..id..']%0AСервер: '..erp)) -- Проверка админа на "Вы тут?"
 	end
 	if str:find('1 EVENT XP') then
-		openUrl(AnsiToUtf8(link .. '- Ïîçäðàâëÿåì! Âû ïîëó÷èëè 1 EVENT XP!%0A%0AÍèê: ' ..nick.. '['..id..']%0AÑåðâåð: '..erp)) -- 
+		openUrl(AnsiToUtf8(link .. '- Поздравляем! Вы получили 1 EVENT XP!%0A%0AНик: ' ..nick.. '['..id..']%0AСервер: '..erp)) -- 
 	end
 end
+
 
 function onTelegramMessage(from, text)
 	sn = getServerName()
 	nickname = getNickName()
 	money = getMoney()
     if text == "/active" then
-        openUrl(AnsiToUtf8(link..'[by _delete_] Àêòèâíûé áîò:%0A%0AÍèê: '..nickname..'%0AÑåðâåð: '..sn))
+        openUrl(AnsiToUtf8(link..'[Evolve Evolution]: Активный бот:%0A%0AНик: '..nickname..'%0AСервер: '..sn))
 			elseif text == "/t" then
-        openUrl(AnsiToUtf8(link..'[by _delete_] Ñîîáùåíèå óñïåøíî áûëà îòïðàâëåíà'))
-				runCommand('Äà, ÿ òóò')
+        openUrl(AnsiToUtf8(link..'[Evolve Evolution]:  Сообщение успешно была отправлена'))
+				runCommand('Да, я тут')
 			elseif text == "/money" then
-				openUrl(AnsiToUtf8(link..'[by _delete_] Áîò: '..nickname..'%0AÄåíåã: '..money))
+				openUrl(AnsiToUtf8(link..'[Evolve Evolution]:  Бот: '..nickname..'%0AДенег: '..money))
 			elseif text == "/aq" then
-				openUrl(AnsiToUtf8(link..'[by _delete_] Âñå áîòû îòêëþ÷åíû'))
+				openUrl(AnsiToUtf8(link..'[Evolve Evolution]:  Все боты отключены'))
 				runCommand('!quit')
 			elseif text == "/cmd" then
-				openUrl(AnsiToUtf8(link..'[by _delete_] Êîìàíäû:%0A/active - Ïîñìîòðåòü ñïèñîê àêòèâíûõ áîòîâ%0A/t - Îòïðàâêà ñîîáùåíèå â ÷àò "Äà, ÿ òóò"%0A/money - Óçíàòü êîëè÷åñòâî äåíåã ó áîòîâ%0A/aq - Îòêëþ÷èòü âñåõ áîòîâ'))
+				openUrl(AnsiToUtf8(link..'[Evolve Evolution]:  Команды:%0A/active - Посмотреть список активных ботов%0A/t - Отправка сообщение в чат "Да, я тут"%0A/money - Узнать количество денег у ботов%0A/aq - Отключить всех ботов'))
     else
-        openUrl(AnsiToUtf8(link..'[by _delete_] Íåèçâåñòíàÿ êîìàíäà%0AÂâåäèòå: /cmd ÷òî áû ïîñìîòðåòü êîìàíäû'))
+        openUrl(AnsiToUtf8(link..'[Evolve Evolution]:  Неизвестная команда%0AВведите: /cmd что бы посмотреть команды'))
     end
 end
 --function onScriptUpdate()

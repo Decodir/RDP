@@ -3,7 +3,7 @@ local chatid = ('612687438')
 local link = ('https://api.telegram.org/bot' .. token .. '/sendMessage?chat_id=' .. chatid .. '&text=' )
 --local KDtext = 45000
 
-local ansi_decode={ -- íèæå ñìîòğèòå
+local ansi_decode={ -- Ã­Ã¨Ã¦Ã¥ Ã±Ã¬Ã®Ã²Ã°Ã¨Ã²Ã¥
 	 [128]='\208\130',[129]='\208\131',[130]='\226\128\154',[131]='\209\147',[132]='\226\128\158',[133]='\226\128\166',
 	 [134]='\226\128\160',[135]='\226\128\161',[136]='\226\130\172',[137]='\226\128\176',[138]='\208\137',[139]='\226\128\185',
 	 [140]='\208\138',[141]='\208\140',[142]='\208\139',[143]='\208\143',[144]='\209\146',[145]='\226\128\152',
@@ -38,7 +38,7 @@ function AnsiToUtf8(s)
   return r
 end
 
-function getIp() -- ïîëó÷èòü ñâîé àéïè
+function getIp() -- Ã¯Ã®Ã«Ã³Ã·Ã¨Ã²Ã¼ Ã±Ã¢Ã®Ã© Ã Ã©Ã¯Ã¨
 	ip = openUrl('https://api.ipify.org/?format=json')
 
 	return ip:match('{\"ip\":\"(.*)\"}')
@@ -64,8 +64,8 @@ end
 function onScriptStart()
 	math.randomseed(os.time())
   lanes.gen("*", updateThread)(token)
-	printLog('[by _delete_]: Ñêğèïò óñïåøíî çàãğóæåí!')
-	openUrl(AnsiToUtf8(link..'[by _delete_] Ñêğèïò óñïåøíî çàãğóæåí'))
+	printLog('[by _delete_]: Ã‘ÃªÃ°Ã¨Ã¯Ã² Ã³Ã±Ã¯Ã¥Ã¸Ã­Ã® Ã§Ã Ã£Ã°Ã³Ã¦Ã¥Ã­!')
+	openUrl(AnsiToUtf8(link..'[by _delete_] Ã‘ÃªÃ°Ã¨Ã¯Ã² Ã³Ã±Ã¯Ã¥Ã¸Ã­Ã® Ã§Ã Ã£Ã°Ã³Ã¦Ã¥Ã­'))
 end
 
 function isCoordsInArea2d(x, y, ax, ay, bx, by)
@@ -78,13 +78,13 @@ end
 function onSetHealth(health)
 	nickname = getNickName()
 	sn = getServerName()
-	openUrl(AnsiToUtf8(link..'[by _delete_] Èçìåíåíèå çäîğîâüÿ:%0A%0AÍèê: '..nickname..'%0AÇäîğîâüå: '..health..'%0AÑåğâåğ: '..sn))
+	openUrl(AnsiToUtf8(link..'[by _delete_] ÃˆÃ§Ã¬Ã¥Ã­Ã¥Ã­Ã¨Ã¥ Ã§Ã¤Ã®Ã°Ã®Ã¢Ã¼Ã¿:%0A%0AÃÃ¨Ãª: '..nickname..'%0AÃ‡Ã¤Ã®Ã°Ã®Ã¢Ã¼Ã¥: '..health..'%0AÃ‘Ã¥Ã°Ã¢Ã¥Ã°: '..sn))
 end
 
 function onConnect()
 	nickname = getNickName()
 	sn = getServerName()
-	openUrl(AnsiToUtf8(link..'[by _delete_] Áîò '..nickname..' óñïåøíî ïîäêëş÷åí ê ñåğâåğó: '..sn))
+	openUrl(AnsiToUtf8(link..'[by _delete_] ÃÃ®Ã² '..nickname..' Ã³Ã±Ã¯Ã¥Ã¸Ã­Ã® Ã¯Ã®Ã¤ÃªÃ«Ã¾Ã·Ã¥Ã­ Ãª Ã±Ã¥Ã°Ã¢Ã¥Ã°Ã³: '..sn))
 end
 
 function isPlayerInStream(playerName)
@@ -100,12 +100,12 @@ function isPlayerInStream(playerName)
 end
 
 function onServerMessage(msg)
-    local adminName, playerName = msg:match('Àäìèíèñòğàòîğ: (%S+) çàáàíèë (%S+)')
+    local adminName, playerName = msg:match('Ã€Ã¤Ã¬Ã¨Ã­Ã¨Ã±Ã²Ã°Ã Ã²Ã®Ã°: (%S+) Ã§Ã Ã¡Ã Ã­Ã¨Ã« (%S+)')
     if adminName and playerName then
         local botName = getNickName()
         if playerName ~= botName then
             if isPlayerInStream(playerName) then
-				openUrl(AnsiToUtf8(link..'Áîò '..nick..'['..id..'] óø¸ë â ğåêîííåêò.%0AÏğè÷èíà: Àäìèí çàáàíèë â çîíå ïğîğèñîâêè.')) -- %0A ïåğåíîñ íà íîâóş ñòğîêó
+				openUrl(AnsiToUtf8(link..'ÃÃ®Ã² '..nick..'['..id..'] Ã³Ã¸Â¸Ã« Ã¢ Ã°Ã¥ÃªÃ®Ã­Ã­Ã¥ÃªÃ².%0AÃÃ°Ã¨Ã·Ã¨Ã­Ã : Ã€Ã¤Ã¬Ã¨Ã­ Ã§Ã Ã¡Ã Ã­Ã¨Ã« Ã¢ Ã§Ã®Ã­Ã¥ Ã¯Ã°Ã®Ã°Ã¨Ã±Ã®Ã¢ÃªÃ¨.')) -- %0A Ã¯Ã¥Ã°Ã¥Ã­Ã®Ã± Ã­Ã  Ã­Ã®Ã¢Ã³Ã¾ Ã±Ã²Ã°Ã®ÃªÃ³
                 reconnect(10000)
             end
         end
@@ -119,9 +119,9 @@ function onSpawned(x)
 	id = getBotId()
 	money = getMoney()
 	if (x > 1 and x < 3000) then
-		printLog('[Evolve Evolution]: Áîò çàñïàâíåí!')
+		printLog('[Evolve Evolution]: ÃÃ®Ã² Ã§Ã Ã±Ã¯Ã Ã¢Ã­Ã¥Ã­!')
 		defCallAdd(2000, false, function()
-			openUrl(AnsiToUtf8(link..'Áîò '..nick..'['..id..'] çàñïàâíèëñÿ íà ñåğâåğå.%0AÏàğîëü: '..pass..'%0AÄåíåã íà ğóêàõ: '..money..'$%0AÑåğâåğ: '..erp..'%0AIP áîòà: '..getIp())) -- %0A ïåğåíîñ íà íîâóş ñòğîêó
+			openUrl(AnsiToUtf8(link..'ÃÃ®Ã² '..nick..'['..id..'] Ã§Ã Ã±Ã¯Ã Ã¢Ã­Ã¨Ã«Ã±Ã¿ Ã­Ã  Ã±Ã¥Ã°Ã¢Ã¥Ã°Ã¥.%0AÃÃ Ã°Ã®Ã«Ã¼: '..pass..'%0AÃ„Ã¥Ã­Ã¥Ã£ Ã­Ã  Ã°Ã³ÃªÃ Ãµ: '..money..'$%0AÃ‘Ã¥Ã°Ã¢Ã¥Ã°: '..erp..'%0AIP Ã¡Ã®Ã²Ã : '..getIp())) -- %0A Ã¯Ã¥Ã°Ã¥Ã­Ã®Ã± Ã­Ã  Ã­Ã®Ã¢Ã³Ã¾ Ã±Ã²Ã°Ã®ÃªÃ³
 		end)
 	end
 end
@@ -133,33 +133,33 @@ function onPrintLog(str)
 	pass = getPassword()
 	money = getMoney()
 	id = getBotId()
-	if str:find('Ñîåäèíåíèå ñ ñåğâåğîì ğàçîğâàíî') then
-		openUrl(AnsiToUtf8(link..'- Ñîåäèíåíèå ñ ñåğâåğîì ğàçîğâàíî!%0A%0AÍèê: ' ..nick.. '['..id..']%0AÑåğâåğ: '..erp)) -- Êèê / Ğåêîííåêò
+	if str:find('Ã‘Ã®Ã¥Ã¤Ã¨Ã­Ã¥Ã­Ã¨Ã¥ Ã± Ã±Ã¥Ã°Ã¢Ã¥Ã°Ã®Ã¬ Ã°Ã Ã§Ã®Ã°Ã¢Ã Ã­Ã®') then
+		openUrl(AnsiToUtf8(link..'- Ã‘Ã®Ã¥Ã¤Ã¨Ã­Ã¥Ã­Ã¨Ã¥ Ã± Ã±Ã¥Ã°Ã¢Ã¥Ã°Ã®Ã¬ Ã°Ã Ã§Ã®Ã°Ã¢Ã Ã­Ã®!%0A%0AÃÃ¨Ãª: ' ..nick.. '['..id..']%0AÃ‘Ã¥Ã°Ã¢Ã¥Ã°: '..erp)) -- ÃŠÃ¨Ãª / ÃÃ¥ÃªÃ®Ã­Ã­Ã¥ÃªÃ²
 	end
-	if str:find('âûäàë warn '..nick) then
-		openUrl(AnsiToUtf8(link..'- Áîò áûë çàáëîêèğîâàí.%0A%0AÍèê: '..nick..'%0AÑåğâåğ:'..erp)) -- Âàğí
+	if str:find('Ã¢Ã»Ã¤Ã Ã« warn '..nick) then
+		openUrl(AnsiToUtf8(link..'- ÃÃ®Ã² Ã¡Ã»Ã« Ã§Ã Ã¡Ã«Ã®ÃªÃ¨Ã°Ã®Ã¢Ã Ã­.%0A%0AÃÃ¨Ãª: '..nick..'%0AÃ‘Ã¥Ã°Ã¢Ã¥Ã°:'..erp)) -- Ã‚Ã Ã°Ã­
 	end
-	if str:find('çàáàíèë '..nick) then
-		openUrl(AnsiToUtf8(link..'- Áîò áûë çàáëîêèğîâàí.%0A%0AÍèê: '..nick..'%0AÑåğâåğ:'..erp)) -- Áàí
+	if str:find('Ã§Ã Ã¡Ã Ã­Ã¨Ã« '..nick) then
+		openUrl(AnsiToUtf8(link..'- ÃÃ®Ã² Ã¡Ã»Ã« Ã§Ã Ã¡Ã«Ã®ÃªÃ¨Ã°Ã®Ã¢Ã Ã­.%0A%0AÃÃ¨Ãª: '..nick..'%0AÃ‘Ã¥Ã°Ã¢Ã¥Ã°:'..erp)) -- ÃÃ Ã­
 	end
-	if str:find('Âàñ òåëåïîğòèğîâàë ê ñåáå àäìèíèñòğàòîğ') then
-		openUrl(AnsiToUtf8(link .. '- Àäìèíèñòğàòîğ òåëåïîğòèğîâàë âàñ!%0A%0AÍèê: ' ..nick..'['.. id ..']%0AÑåğâåğ: '..erp)) -- Òåëåïîğòèğîâàë àäìèí ê ñåáå
+	if str:find('Ã‚Ã Ã± Ã²Ã¥Ã«Ã¥Ã¯Ã®Ã°Ã²Ã¨Ã°Ã®Ã¢Ã Ã« Ãª Ã±Ã¥Ã¡Ã¥ Ã Ã¤Ã¬Ã¨Ã­Ã¨Ã±Ã²Ã°Ã Ã²Ã®Ã°') then
+		openUrl(AnsiToUtf8(link .. '- Ã€Ã¤Ã¬Ã¨Ã­Ã¨Ã±Ã²Ã°Ã Ã²Ã®Ã° Ã²Ã¥Ã«Ã¥Ã¯Ã®Ã°Ã²Ã¨Ã°Ã®Ã¢Ã Ã« Ã¢Ã Ã±!%0A%0AÃÃ¨Ãª: ' ..nick..'['.. id ..']%0AÃ‘Ã¥Ã°Ã¢Ã¥Ã°: '..erp)) -- Ã’Ã¥Ã«Ã¥Ã¯Ã®Ã°Ã²Ã¨Ã°Ã®Ã¢Ã Ã« Ã Ã¤Ã¬Ã¨Ã­ Ãª Ã±Ã¥Ã¡Ã¥
 	end
-	if str:find(' äàë ïîäæîïíèê') then
-		openUrl(AnsiToUtf8(link .. '- Àäìèíèñòğàòîğ äàë âàì ïîäæîïíèê!%0A%0AÍèê: ' ..nick.. '['..id..']%0AÑåğâåğ: '..erp)) -- Äàë ïîäæîïíèê àäìèí
+	if str:find(' Ã¤Ã Ã« Ã¯Ã®Ã¤Ã¦Ã®Ã¯Ã­Ã¨Ãª') then
+		openUrl(AnsiToUtf8(link .. '- Ã€Ã¤Ã¬Ã¨Ã­Ã¨Ã±Ã²Ã°Ã Ã²Ã®Ã° Ã¤Ã Ã« Ã¢Ã Ã¬ Ã¯Ã®Ã¤Ã¦Ã®Ã¯Ã­Ã¨Ãª!%0A%0AÃÃ¨Ãª: ' ..nick.. '['..id..']%0AÃ‘Ã¥Ã°Ã¢Ã¥Ã°: '..erp)) -- Ã„Ã Ã« Ã¯Ã®Ã¤Ã¦Ã®Ã¯Ã­Ã¨Ãª Ã Ã¤Ã¬Ã¨Ã­
 	end
-	if str:find('Áîíóñíàÿ ïğîêğóòêà') then
-		openUrl(AnsiToUtf8(link .. '- Ïîçäğàâëÿåì! Âû ïîëó÷èëè Áîíóñíóş ïğîêğóòêó! Ñåé÷àñ ïğîèçîéä¸ò ğåñòàğò áîòà!%0A%0AÍèê: ' ..nick.. '['..id..']%0AÑåğâåğ: '..erp)) -- Âûïàëà ğóëåòêà
+	if str:find('ÃÃ®Ã­Ã³Ã±Ã­Ã Ã¿ Ã¯Ã°Ã®ÃªÃ°Ã³Ã²ÃªÃ ') then
+		openUrl(AnsiToUtf8(link .. '- ÃÃ®Ã§Ã¤Ã°Ã Ã¢Ã«Ã¿Ã¥Ã¬! Ã‚Ã» Ã¯Ã®Ã«Ã³Ã·Ã¨Ã«Ã¨ ÃÃ®Ã­Ã³Ã±Ã­Ã³Ã¾ Ã¯Ã°Ã®ÃªÃ°Ã³Ã²ÃªÃ³! Ã‘Ã¥Ã©Ã·Ã Ã± Ã¯Ã°Ã®Ã¨Ã§Ã®Ã©Ã¤Â¸Ã² Ã°Ã¥Ã±Ã²Ã Ã°Ã² Ã¡Ã®Ã²Ã !%0A%0AÃÃ¨Ãª: ' ..nick.. '['..id..']%0AÃ‘Ã¥Ã°Ã¢Ã¥Ã°: '..erp)) -- Ã‚Ã»Ã¯Ã Ã«Ã  Ã°Ã³Ã«Ã¥Ã²ÃªÃ 
 		reconnect(10000)
 	end
-	if str:find('òóò') then
+	if str:find('Ã²Ã³Ã²') then
 	--	defCallAdd(KDtext, true, function()
-	--		sendInput('Äà ÿ íå îòîø¸ë ïğîñòî ÷àé ïüş ñèæó') --
+	--		sendInput('Ã„Ã  Ã¿ Ã­Ã¥ Ã®Ã²Ã®Ã¸Â¸Ã« Ã¯Ã°Ã®Ã±Ã²Ã® Ã·Ã Ã© Ã¯Ã¼Ã¾ Ã±Ã¨Ã¦Ã³') --
 	--	end)
-		openUrl(AnsiToUtf8(link .. '- Àäìèíèñòğàòîğ Âàñ ñïğîñèë Âû òóò?%0A%0AÍèê: ' ..nick.. '['..id..']%0AÑåğâåğ: '..erp)) -- Ïğîâåğêà àäìèíà íà "Âû òóò?"
+		openUrl(AnsiToUtf8(link .. '- Ã€Ã¤Ã¬Ã¨Ã­Ã¨Ã±Ã²Ã°Ã Ã²Ã®Ã° Ã‚Ã Ã± Ã±Ã¯Ã°Ã®Ã±Ã¨Ã« Ã‚Ã» Ã²Ã³Ã²?%0A%0AÃÃ¨Ãª: ' ..nick.. '['..id..']%0AÃ‘Ã¥Ã°Ã¢Ã¥Ã°: '..erp)) -- ÃÃ°Ã®Ã¢Ã¥Ã°ÃªÃ  Ã Ã¤Ã¬Ã¨Ã­Ã  Ã­Ã  "Ã‚Ã» Ã²Ã³Ã²?"
 	end
 	if str:find('1 EVENT XP') then
-		openUrl(AnsiToUtf8(link .. '- Ïîçäğàâëÿåì! Âû ïîëó÷èëè 1 EVENT XP!%0A%0AÍèê: ' ..nick.. '['..id..']%0AÑåğâåğ: '..erp)) -- 
+		openUrl(AnsiToUtf8(link .. '- ÃÃ®Ã§Ã¤Ã°Ã Ã¢Ã«Ã¿Ã¥Ã¬! Ã‚Ã» Ã¯Ã®Ã«Ã³Ã·Ã¨Ã«Ã¨ 1 EVENT XP!%0A%0AÃÃ¨Ãª: ' ..nick.. '['..id..']%0AÃ‘Ã¥Ã°Ã¢Ã¥Ã°: '..erp)) -- 
 	end
 end
 
@@ -168,19 +168,19 @@ function onTelegramMessage(from, text)
 	nickname = getNickName()
 	money = getMoney()
     if text == "/active" then
-        openUrl(AnsiToUtf8(link..'[by _delete_] Àêòèâíûé áîò:%0A%0AÍèê: '..nickname..'%0AÑåğâåğ: '..sn))
+        openUrl(AnsiToUtf8(link..'[by _delete_] Ã€ÃªÃ²Ã¨Ã¢Ã­Ã»Ã© Ã¡Ã®Ã²:%0A%0AÃÃ¨Ãª: '..nickname..'%0AÃ‘Ã¥Ã°Ã¢Ã¥Ã°: '..sn))
 			elseif text == "/t" then
-        openUrl(AnsiToUtf8(link..'[by _delete_] Ñîîáùåíèå óñïåøíî áûëà îòïğàâëåíà'))
-				runCommand('Äà, ÿ òóò')
+        openUrl(AnsiToUtf8(link..'[by _delete_] Ã‘Ã®Ã®Ã¡Ã¹Ã¥Ã­Ã¨Ã¥ Ã³Ã±Ã¯Ã¥Ã¸Ã­Ã® Ã¡Ã»Ã«Ã  Ã®Ã²Ã¯Ã°Ã Ã¢Ã«Ã¥Ã­Ã '))
+				runCommand('Ã„Ã , Ã¿ Ã²Ã³Ã²')
 			elseif text == "/money" then
-				openUrl(AnsiToUtf8(link..'[by _delete_] Áîò: '..nickname..'%0AÄåíåã: '..money))
+				openUrl(AnsiToUtf8(link..'[by _delete_] ÃÃ®Ã²: '..nickname..'%0AÃ„Ã¥Ã­Ã¥Ã£: '..money))
 			elseif text == "/aq" then
-				openUrl(AnsiToUtf8(link..'[by _delete_] Âñå áîòû îòêëş÷åíû'))
+				openUrl(AnsiToUtf8(link..'[by _delete_] Ã‚Ã±Ã¥ Ã¡Ã®Ã²Ã» Ã®Ã²ÃªÃ«Ã¾Ã·Ã¥Ã­Ã»'))
 				runCommand('!quit')
 			elseif text == "/cmd" then
-				openUrl(AnsiToUtf8(link..'[by _delete_] Êîìàíäû:%0A/active - Ïîñìîòğåòü ñïèñîê àêòèâíûõ áîòîâ%0A/t - Îòïğàâêà ñîîáùåíèå â ÷àò "Äà, ÿ òóò"%0A/money - Óçíàòü êîëè÷åñòâî äåíåã ó áîòîâ%0A/aq - Îòêëş÷èòü âñåõ áîòîâ'))
+				openUrl(AnsiToUtf8(link..'[by _delete_] ÃŠÃ®Ã¬Ã Ã­Ã¤Ã»:%0A/active - ÃÃ®Ã±Ã¬Ã®Ã²Ã°Ã¥Ã²Ã¼ Ã±Ã¯Ã¨Ã±Ã®Ãª Ã ÃªÃ²Ã¨Ã¢Ã­Ã»Ãµ Ã¡Ã®Ã²Ã®Ã¢%0A/t - ÃÃ²Ã¯Ã°Ã Ã¢ÃªÃ  Ã±Ã®Ã®Ã¡Ã¹Ã¥Ã­Ã¨Ã¥ Ã¢ Ã·Ã Ã² "Ã„Ã , Ã¿ Ã²Ã³Ã²"%0A/money - Ã“Ã§Ã­Ã Ã²Ã¼ ÃªÃ®Ã«Ã¨Ã·Ã¥Ã±Ã²Ã¢Ã® Ã¤Ã¥Ã­Ã¥Ã£ Ã³ Ã¡Ã®Ã²Ã®Ã¢%0A/aq - ÃÃ²ÃªÃ«Ã¾Ã·Ã¨Ã²Ã¼ Ã¢Ã±Ã¥Ãµ Ã¡Ã®Ã²Ã®Ã¢'))
     else
-        openUrl(AnsiToUtf8(link..'[by _delete_] Íåèçâåñòíàÿ êîìàíäà%0AÂâåäèòå: /cmd ÷òî áû ïîñìîòğåòü êîìàíäû'))
+        openUrl(AnsiToUtf8(link..'[by _delete_] ÃÃ¥Ã¨Ã§Ã¢Ã¥Ã±Ã²Ã­Ã Ã¿ ÃªÃ®Ã¬Ã Ã­Ã¤Ã %0AÃ‚Ã¢Ã¥Ã¤Ã¨Ã²Ã¥: /cmd Ã·Ã²Ã® Ã¡Ã» Ã¯Ã®Ã±Ã¬Ã®Ã²Ã°Ã¥Ã²Ã¼ ÃªÃ®Ã¬Ã Ã­Ã¤Ã»'))
     end
 end
 --function onScriptUpdate()
